@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancasFacil.API", "src\FinancasFacil.API\FinancasFacil.API.csproj", "{0FFCB5B5-34DD-40A6-BCEC-48B71BEC2975}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinancasFacil.API", "src\FinancasFacil.API\FinancasFacil.API.csproj", "{0FFCB5B5-34DD-40A6-BCEC-48B71BEC2975}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancasFacil.Application", "src\FinancasFacil.Application\FinancasFacil.Application.csproj", "{F45DBB9A-416B-4C9E-81A5-BAA0A0152219}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinancasFacil.Application", "src\FinancasFacil.Application\FinancasFacil.Application.csproj", "{F45DBB9A-416B-4C9E-81A5-BAA0A0152219}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancasFacil.Domain", "FinancasFacil.Domain\FinancasFacil.Domain.csproj", "{302F8CB5-E6D9-45AA-AB73-A9005DFB06F2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancasFacil.Domain", "src\FinancasFacil.Domain\FinancasFacil.Domain.csproj", "{F96073FB-2FA1-41E1-BCB7-65AFBE1EF6A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancasFacil.Repository", "FinancasFacil.Repository\FinancasFacil.Repository.csproj", "{CC782536-E0EF-40BC-B874-A91D2B8E74D3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancasFacil.Repository", "src\FinancasFacil.Repository\FinancasFacil.Repository.csproj", "{A129B72E-63AF-41AF-96C2-64E8D492D107}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,14 +25,14 @@ Global
 		{F45DBB9A-416B-4C9E-81A5-BAA0A0152219}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F45DBB9A-416B-4C9E-81A5-BAA0A0152219}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F45DBB9A-416B-4C9E-81A5-BAA0A0152219}.Release|Any CPU.Build.0 = Release|Any CPU
-		{302F8CB5-E6D9-45AA-AB73-A9005DFB06F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{302F8CB5-E6D9-45AA-AB73-A9005DFB06F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{302F8CB5-E6D9-45AA-AB73-A9005DFB06F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{302F8CB5-E6D9-45AA-AB73-A9005DFB06F2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CC782536-E0EF-40BC-B874-A91D2B8E74D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CC782536-E0EF-40BC-B874-A91D2B8E74D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CC782536-E0EF-40BC-B874-A91D2B8E74D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CC782536-E0EF-40BC-B874-A91D2B8E74D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F96073FB-2FA1-41E1-BCB7-65AFBE1EF6A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F96073FB-2FA1-41E1-BCB7-65AFBE1EF6A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F96073FB-2FA1-41E1-BCB7-65AFBE1EF6A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F96073FB-2FA1-41E1-BCB7-65AFBE1EF6A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A129B72E-63AF-41AF-96C2-64E8D492D107}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A129B72E-63AF-41AF-96C2-64E8D492D107}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A129B72E-63AF-41AF-96C2-64E8D492D107}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A129B72E-63AF-41AF-96C2-64E8D492D107}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

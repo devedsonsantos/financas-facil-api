@@ -1,36 +1,27 @@
+using FinancasFacil.Repository.Context;
+using Microsoft.EntityFrameworkCore;
 
-namespace FinancasFacil.API
-{
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+builder.Services.AddDbContext<FinancasContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-            builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<DbContext, FinancasContext>();
 
-            var app = builder.Build();
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
+var app = builder.Build();
 
-            app.UseHttpsRedirection();
+app.UseSwagger();
+app.UseSwaggerUI();
 
-            app.UseAuthorization();
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
 
 
-            app.MapControllers();
+app.MapControllers();
 
-            app.Run();
-        }
-    }
-}
+app.Run();

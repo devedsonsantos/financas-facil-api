@@ -21,10 +21,12 @@ public class MovimentoService : IMovimentoService
 
     public async Task<IEnumerable<MovimentoViewModel>> ObterPorPeriodoAsync(DateTime? dataInicio, DateTime? dataFim)
     {
-        dataInicio ??= DateTime.UtcNow;
-        dataFim ??= DateTime.UtcNow;
+        dataInicio ??= DateTime.Now;
+        dataFim ??= DateTime.Now;
 
-        var movimentos = await _movimentoRepository.ObterPorPeriodoAsync(dataInicio, dataFim);
+        var movimentos = await _movimentoRepository
+            .ObterPorPeriodoAsync(dataInicio.GetValueOrDefault(), dataFim.GetValueOrDefault());
+
         var movimentosViewModel = new List<MovimentoViewModel>();
 
         foreach (var movimento in movimentos)
@@ -36,6 +38,7 @@ public class MovimentoService : IMovimentoService
     public async Task<IEnumerable<MovimentoViewModel>> ObterTodosAsync()
     {
         var movimentos = await _movimentoRepository.ObterTodosAsync();
+
         var movimentosViewModel = new List<MovimentoViewModel>();
 
         foreach (var movimento in movimentos)

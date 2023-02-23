@@ -20,7 +20,7 @@ public class MovimentoRepository : IMovimentoRepository
             .FirstOrDefaultAsync(x => x.Id == id && x.DataExclusao == null);
     }
 
-    public async Task<IEnumerable<Movimento>> ObterPorPeriodoAsync(DateTime? dataInicio, DateTime? dataFim)
+    public async Task<IEnumerable<Movimento>> ObterPorPeriodoAsync(DateTime dataInicio, DateTime dataFim)
     {
         return await _context.Movimentos
             .AsNoTracking()

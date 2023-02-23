@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinancasFacil.API", "src\Fi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinancasFacil.Application", "src\FinancasFacil.Application\FinancasFacil.Application.csproj", "{F45DBB9A-416B-4C9E-81A5-BAA0A0152219}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancasFacil.Domain", "src\FinancasFacil.Domain\FinancasFacil.Domain.csproj", "{F96073FB-2FA1-41E1-BCB7-65AFBE1EF6A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinancasFacil.Domain", "src\FinancasFacil.Domain\FinancasFacil.Domain.csproj", "{F96073FB-2FA1-41E1-BCB7-65AFBE1EF6A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancasFacil.Repository", "src\FinancasFacil.Repository\FinancasFacil.Repository.csproj", "{A129B72E-63AF-41AF-96C2-64E8D492D107}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FinancasFacil.Repository", "src\FinancasFacil.Repository\FinancasFacil.Repository.csproj", "{A129B72E-63AF-41AF-96C2-64E8D492D107}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

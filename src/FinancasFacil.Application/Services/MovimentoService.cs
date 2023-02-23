@@ -19,19 +19,43 @@ public class MovimentoService : IMovimentoService
         return movimento != null ? MovimentoViewModel.FromModel(movimento) : null;
     }
 
-    public Task<IEnumerable<MovimentoViewModel>> ObterPorPeriodoAsync(DateTime? dataInicio, DateTime? dataFim)
+    public async Task<IEnumerable<MovimentoViewModel>> ObterPorPeriodoAsync(DateTime? dataInicio, DateTime? dataFim)
     {
-        throw new NotImplementedException();
+        dataInicio ??= DateTime.UtcNow;
+        dataFim ??= DateTime.UtcNow;
+
+        var movimentos = await _movimentoRepository.ObterPorPeriodoAsync(dataInicio, dataFim);
+        var movimentosViewModel = new List<MovimentoViewModel>();
+
+        foreach (var movimento in movimentos)
+            movimentosViewModel.Add(MovimentoViewModel.FromModel(movimento));
+
+        return movimentosViewModel;
     }
 
-    public Task<IEnumerable<MovimentoViewModel>> ObterTodosAsync()
+    public async Task<IEnumerable<MovimentoViewModel>> ObterTodosAsync()
     {
-        throw new NotImplementedException();
+        var movimentos = await _movimentoRepository.ObterTodosAsync();
+        var movimentosViewModel = new List<MovimentoViewModel>();
+
+        foreach (var movimento in movimentos)
+            movimentosViewModel.Add(MovimentoViewModel.FromModel(movimento));
+
+        return movimentosViewModel;
     }
 
-    public Task<MovimentoViewModel> AtualizarAsync(MovimentoViewModel movimento)
+    public async Task<MovimentoViewModel> AtualizarAsync(MovimentoViewModel viewModel)
     {
-        throw new NotImplementedException();
+        var movimento = await _movimentoRepository.ObterPorIdAsync(viewModel.Id.GetValueOrDefault());
+
+        if (movimento == null)
+            return null;
+
+        movimento = MovimentoViewModel.Merge(viewModel, movimento);
+
+        var movimentoAtualizado = await _movimentoRepository.AtualizarAsync(movimento);
+
+        return MovimentoViewModel.FromModel(movimentoAtualizado);
     }
 
     public async Task<MovimentoViewModel> CadastrarAsync(MovimentoViewModel viewModel)
@@ -43,8 +67,15 @@ public class MovimentoService : IMovimentoService
         return MovimentoViewModel.FromModel(movimento);
     }
 
-    public Task ExcluirAsync(Guid id)
+    public async Task<bool> ExcluirAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var movimento = await _movimentoRepository.ObterPorIdAsync(id);
+
+        if (movimento == null) 
+            return false;
+
+        await _movimentoRepository.ExcluirAsync(movimento);
+
+        return true;
     }
 }

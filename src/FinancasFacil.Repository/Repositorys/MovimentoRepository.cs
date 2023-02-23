@@ -13,10 +13,39 @@ public class MovimentoRepository : IMovimentoRepository
     {
         _context = context;
     }
-
-    public Task<Movimento> AtualizarAsync(Movimento movimento)
+    public async Task<Movimento?> ObterPorIdAsync(Guid id)
     {
-        throw new NotImplementedException();
+        return await _context.Movimentos
+            .AsNoTracking()
+            .FirstOrDefaultAsync(x => x.Id == id && x.DataExclusao == null);
+    }
+
+    public async Task<IEnumerable<Movimento>> ObterPorPeriodoAsync(DateTime? dataInicio, DateTime? dataFim)
+    {
+        return await _context.Movimentos
+            .AsNoTracking()
+            .Where(x => x.DataVencimento >= dataInicio && 
+                        x.DataVencimento <= dataFim &&
+                        x.DataExclusao == null)
+            .ToListAsync();
+    }
+
+    public async Task<IEnumerable<Movimento>> ObterTodosAsync()
+    {
+        return await _context.Movimentos
+            .AsNoTracking()
+            .Where(x => x.DataExclusao == null)
+            .ToListAsync();
+    }
+
+    public async Task<Movimento> AtualizarAsync(Movimento movimento)
+    {
+        var movimentoReturn = _context.Movimentos
+            .Update(movimento);
+
+        await SaveChangesAsync();
+
+        return movimentoReturn.Entity;
     }
 
     public async Task<Movimento> CadastrarAsync(Movimento movimento)
@@ -24,30 +53,23 @@ public class MovimentoRepository : IMovimentoRepository
         var movimentoReturn = await _context.Movimentos
             .AddAsync(movimento);
 
-        await _context.SaveChangesAsync();
+        await SaveChangesAsync();
 
         return movimentoReturn.Entity;
     }
 
-    public Task ExcluirAsync(Guid id)
+    public async Task ExcluirAsync(Movimento movimento)
     {
-        throw new NotImplementedException();
+        _context.Movimentos.Remove(movimento);
+
+        await SaveChangesAsync();
     }
 
-    public async Task<Movimento?> ObterPorIdAsync(Guid id)
+    private async Task<int> SaveChangesAsync()
     {
-        return await _context.Movimentos
-            .AsNoTracking()
-            .FirstOrDefaultAsync(x => x.Id == id);
-    }
+        var boolean = await _context.SaveChangesAsync();
+        await _context.DisposeAsync();
 
-    public Task<IEnumerable<Movimento>> ObterPorPeriodoAsync(DateTime? dataInicio, DateTime? dataFim)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<IEnumerable<Movimento>> ObterTodosAsync()
-    {
-        throw new NotImplementedException();
+        return boolean;
     }
 }

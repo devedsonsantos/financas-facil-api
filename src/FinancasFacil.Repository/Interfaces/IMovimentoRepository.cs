@@ -9,5 +9,5 @@ public interface IMovimentoRepository
     Task<Movimento?> ObterPorIdAsync(Guid id);
     Task<Movimento> CadastrarAsync(Movimento movimento);
     Task<Movimento> AtualizarAsync(Movimento movimento);
-    Task ExcluirAsync(Guid id);
+    Task ExcluirAsync(Movimento movimento);
 }

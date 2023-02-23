@@ -8,7 +8,7 @@ public interface IMovimentoService
     Task<IEnumerable<MovimentoViewModel>> ObterTodosAsync();
     Task<IEnumerable<MovimentoViewModel>> ObterPorPeriodoAsync(DateTime? dataInicio, DateTime? dataFim);
     Task<MovimentoViewModel?> ObterPorIdAsync(Guid id);
-    Task<MovimentoViewModel> CadastrarAsync(MovimentoViewModel movimento);
-    Task<MovimentoViewModel> AtualizarAsync(MovimentoViewModel movimento);
-    Task ExcluirAsync(Guid id);
+    Task<MovimentoViewModel> CadastrarAsync(MovimentoViewModel viewModel);
+    Task<MovimentoViewModel> AtualizarAsync(MovimentoViewModel viewModel);
+    Task<bool> ExcluirAsync(Guid id);
 }

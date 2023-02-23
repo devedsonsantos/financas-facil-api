@@ -27,7 +27,6 @@ public class MovimentoViewModel
 
     public Movimento ToModel(Movimento model)
     {
-        model.Id = Id ?? model.Id;
         model.Descricao = Descricao ?? model.Descricao;
         model.Tipo = Tipo ?? model.Tipo;
         model.DataVencimento = DataVencimento ?? model.DataVencimento;
@@ -37,7 +36,11 @@ public class MovimentoViewModel
         model.Quitado = Quitado ?? model.Quitado;
         model.DataCadastro = DataCadastro ?? model.DataCadastro;
         model.DataModificacao = DataModificacao ?? model.DataModificacao;
-        model.DataExclusao = DataExclusao ?? model.DataExclusao;
+
+        if (model.Id == Guid.Empty) 
+            model.Id = Guid.NewGuid();
+        else
+            model.Id = Id ?? Guid.NewGuid();
 
         return model;
     }
@@ -55,8 +58,21 @@ public class MovimentoViewModel
             Categoria = model.Categoria,
             Quitado = model.Quitado,
             DataCadastro = model.DataCadastro,
-            DataModificacao = model.DataModificacao,
-            DataExclusao = model.DataExclusao
+            DataModificacao = model.DataModificacao
         };
+    }
+
+    public static Movimento Merge(MovimentoViewModel viewModel, Movimento model)
+    {
+        model.Descricao = viewModel.Descricao ?? model.Descricao;
+        model.Tipo = viewModel.Tipo ?? model.Tipo;
+        model.DataVencimento = viewModel.DataVencimento ?? model.DataVencimento;
+        model.Valor = viewModel.Valor ?? model.Valor;
+        model.Observacao = viewModel.Observacao ?? model.Observacao;
+        model.Categoria = viewModel.Categoria ?? model.Categoria;
+        model.Quitado = viewModel.Quitado ?? model.Quitado;
+        model.DataModificacao = viewModel.DataModificacao ?? DateTime.UtcNow;
+
+        return model;
     }
 }

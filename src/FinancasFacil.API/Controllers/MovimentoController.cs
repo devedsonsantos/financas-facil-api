@@ -51,6 +51,13 @@ public class MovimentoController : ControllerBase
         return Ok(movimento);
     }
 
+    [HttpGet]
+    [Route(nameof(ObterSaldo))]
+    public async Task<decimal> ObterSaldo(DateTime? dataInicio, DateTime? dataFim)
+    {
+        return await _movimentoService.ObterSaldoAsync(dataInicio, dataFim);
+    }
+
     [HttpPost]
     [Route(nameof(Cadastrar))]
     public async Task<IActionResult> Cadastrar(MovimentoViewModel viewModel)

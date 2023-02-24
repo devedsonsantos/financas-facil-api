@@ -1,5 +1,6 @@
 ﻿using FinancasFacil.Application.Interfaces;
 using FinancasFacil.Application.ViewModels;
+using FinancasFacil.Domain.Entities;
 using FinancasFacil.Repository.Interfaces;
 
 namespace FinancasFacil.Application.Services;
@@ -19,9 +20,29 @@ public class MovimentoService : IMovimentoService
         return movimento != null ? MovimentoViewModel.FromModel(movimento) : null;
     }
 
+    public async Task<decimal> ObterSaldoAsync(DateTime? dataInicio, DateTime? dataFim)
+    {
+        var movimentos = new List<Movimento>();
+
+        if (dataInicio == null && dataFim == null)
+        {
+            movimentos.AddRange(await _movimentoRepository.ObterTodosAsync());
+        }
+        else
+        {
+            dataInicio ??= DateTime.Today;
+            dataFim ??= DateTime.Now;
+
+            movimentos.AddRange(await _movimentoRepository
+                .ObterPorPeriodoAsync(dataInicio.GetValueOrDefault(), dataFim.GetValueOrDefault()));
+        }
+
+        return Saldo(movimentos);
+    }
+
     public async Task<IEnumerable<MovimentoViewModel>> ObterPorPeriodoAsync(DateTime? dataInicio, DateTime? dataFim)
     {
-        dataInicio ??= DateTime.Now;
+        dataInicio ??= DateTime.Today;
         dataFim ??= DateTime.Now;
 
         var movimentos = await _movimentoRepository
@@ -74,11 +95,26 @@ public class MovimentoService : IMovimentoService
     {
         var movimento = await _movimentoRepository.ObterPorIdAsync(id);
 
-        if (movimento == null) 
+        if (movimento == null)
             return false;
 
         await _movimentoRepository.ExcluirAsync(movimento);
 
         return true;
+    }
+
+    private decimal Saldo(IEnumerable<Movimento> movimentos)
+    {
+        decimal saldo = 0M;
+
+        foreach (var movimento in movimentos)
+        {
+            if (movimento.Tipo == TipoMovimento.Receita)
+                saldo += movimento.Valor;
+            else
+                saldo -= movimento.Valor;
+        }
+
+        return saldo;
     }
 }

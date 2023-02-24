@@ -5,6 +5,7 @@ namespace FinancasFacil.Application.Interfaces;
 
 public interface IMovimentoService
 {
+    Task<decimal> ObterSaldoAsync(DateTime? dataInicio, DateTime? dataFim);
     Task<IEnumerable<MovimentoViewModel>> ObterTodosAsync();
     Task<IEnumerable<MovimentoViewModel>> ObterPorPeriodoAsync(DateTime? dataInicio, DateTime? dataFim);
     Task<MovimentoViewModel?> ObterPorIdAsync(Guid id);

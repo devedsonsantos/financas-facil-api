@@ -32,7 +32,7 @@ public class MovimentoViewModel
         model.DataVencimento = DataVencimento ?? model.DataVencimento;
         model.Valor = Valor ?? model.Valor;
         model.Observacao = Observacao ?? model.Observacao;
-        model.Categoria = Categoria ?? model.Categoria;
+        //model.Categoria = Categoria ?? model.Categoria;
         model.Quitado = Quitado ?? model.Quitado;
         model.DataCadastro = DataCadastro ?? model.DataCadastro;
         model.DataModificacao = DataModificacao ?? model.DataModificacao;
@@ -55,7 +55,7 @@ public class MovimentoViewModel
             DataVencimento = model.DataVencimento,
             Valor = model.Valor,
             Observacao = model.Observacao,
-            Categoria = model.Categoria,
+            //Categoria = model.Categoria,
             Quitado = model.Quitado,
             DataCadastro = model.DataCadastro,
             DataModificacao = model.DataModificacao
@@ -69,7 +69,7 @@ public class MovimentoViewModel
         model.DataVencimento = viewModel.DataVencimento ?? model.DataVencimento;
         model.Valor = viewModel.Valor ?? model.Valor;
         model.Observacao = viewModel.Observacao ?? model.Observacao;
-        model.Categoria = viewModel.Categoria ?? model.Categoria;
+        //model.Categoria = viewModel.Categoria ?? model.Categoria;
         model.Quitado = viewModel.Quitado ?? model.Quitado;
         model.DataModificacao = viewModel.DataModificacao ?? DateTime.UtcNow;
 

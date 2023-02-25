@@ -58,7 +58,7 @@ public class MovimentoViewModel
             Valor = model.Valor,
             Observacao = model.Observacao,
             CategoriaId = model.CategoriaId,
-            Categoria = CategoriaViewModel.FromModel(model.Categoria),
+            Categoria = model?.Categoria != null ? CategoriaViewModel.FromModel(model.Categoria) : null,
             Quitado = model.Quitado,
             DataCadastro = model.DataCadastro,
             DataModificacao = model.DataModificacao

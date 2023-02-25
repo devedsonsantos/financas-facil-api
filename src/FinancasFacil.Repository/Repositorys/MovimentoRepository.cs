@@ -17,6 +17,7 @@ public class MovimentoRepository : IMovimentoRepository
     {
         return await _context.Movimentos
             .AsNoTracking()
+            .Include(x => x.Categoria)
             .FirstOrDefaultAsync(x => x.Id == id && x.DataExclusao == null);
     }
 
@@ -24,6 +25,7 @@ public class MovimentoRepository : IMovimentoRepository
     {
         return await _context.Movimentos
             .AsNoTracking()
+            .Include(x => x.Categoria)
             .Where(x => x.DataVencimento >= dataInicio && 
                         x.DataVencimento <= dataFim &&
                         x.DataExclusao == null)
@@ -34,6 +36,7 @@ public class MovimentoRepository : IMovimentoRepository
     {
         return await _context.Movimentos
             .AsNoTracking()
+            .Include(x => x.Categoria)
             .Where(x => x.DataExclusao == null)
             .ToListAsync();
     }

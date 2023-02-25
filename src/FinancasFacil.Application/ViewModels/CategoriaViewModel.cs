@@ -9,7 +9,6 @@ public class CategoriaViewModel
     public DateTime? DataCadastro { get; set; }
     public DateTime? DataModificacao { get; set; }
     public DateTime? DataExclusao { get; set; }
-    public List<MovimentoViewModel> Movimentos { get; set; }
 
     public Categoria ToModel()
     {
@@ -24,7 +23,6 @@ public class CategoriaViewModel
         model.DataCadastro = DataCadastro ?? model.DataCadastro;
         model.DataModificacao = DataModificacao ?? model.DataModificacao;
         model.DataExclusao = DataExclusao ?? model.DataExclusao;
-        model.Movimentos = Movimentos.Select(m => m.ToModel()).ToList();
 
         if (model.Id == Guid.Empty)
             model.Id = Guid.NewGuid();
@@ -42,8 +40,7 @@ public class CategoriaViewModel
             Descricao = model.Descricao,
             DataCadastro = model.DataCadastro,
             DataModificacao = model.DataModificacao,
-            DataExclusao = model.DataExclusao,
-            Movimentos = new List<MovimentoViewModel>(model.Movimentos.Select(m => MovimentoViewModel.FromModel(m)))
+            DataExclusao = model.DataExclusao
         };
     }
 

@@ -15,9 +15,14 @@ public class MovimentoService : IMovimentoService
     }
     public async Task<MovimentoViewModel?> ObterPorIdAsync(Guid id)
     {
-        var movimento = await _movimentoRepository.ObterPorIdAsync(id);
+        try
+        {
+            var movimento = await _movimentoRepository.ObterPorIdAsync(id);
 
-        return movimento != null ? MovimentoViewModel.FromModel(movimento) : null;
+            return movimento != null ? MovimentoViewModel.FromModel(movimento) : null;
+        }
+        catch(Exception ex) { return null; }
+        
     }
 
     public async Task<decimal> ObterSaldoAsync(DateTime? dataInicio, DateTime? dataFim)

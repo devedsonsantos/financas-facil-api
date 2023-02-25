@@ -31,24 +31,24 @@ public class MovimentoController : ControllerBase
     [Route(nameof(ObterPorPeriodo))]
     public async Task<IActionResult> ObterPorPeriodo(DateTime? dataInicio, DateTime? dataFim)
     {
-        var movimento = await _movimentoService.ObterPorPeriodoAsync(dataInicio, dataFim);
+        var movimentos = await _movimentoService.ObterPorPeriodoAsync(dataInicio, dataFim);
 
-        if (movimento.Count() == 0)
+        if (movimentos.Itens.Count == 0)
             return NoContent();
 
-        return Ok(movimento);
+        return Ok(movimentos);
     }
 
     [HttpGet]
     [Route(nameof(ObterTodos))]
     public async Task<IActionResult> ObterTodos()
     {
-        var movimento = await _movimentoService.ObterTodosAsync();
+        var movimentos = await _movimentoService.ObterTodosAsync();
 
-        if (movimento.Count() == 0)
+        if (movimentos.Itens.Count == 0)
             return NoContent();
 
-        return Ok(movimento);
+        return Ok(movimentos);
     }
 
     [HttpGet]

@@ -22,48 +22,38 @@ public class MovimentoService : IMovimentoService
 
     public async Task<decimal> ObterSaldoAsync(DateTime? dataInicio, DateTime? dataFim)
     {
-        var movimentos = new List<Movimento>();
+        MovimentosViewModel movimentos;
 
         if (dataInicio == null && dataFim == null)
         {
-            movimentos.AddRange(await _movimentoRepository.ObterTodosAsync());
+            movimentos = MovimentosViewModel.FromModel(await _movimentoRepository.ObterTodosAsync());
         }
         else
         {
             dataInicio ??= DateTime.Today;
             dataFim ??= DateTime.Now;
 
-            movimentos.AddRange(await _movimentoRepository
+            movimentos = MovimentosViewModel.FromModel(await _movimentoRepository
                 .ObterPorPeriodoAsync(dataInicio.GetValueOrDefault(), dataFim.GetValueOrDefault()));
         }
 
-        return Saldo(movimentos);
+        return movimentos.Saldo;
     }
 
-    public async Task<IEnumerable<MovimentoViewModel>> ObterPorPeriodoAsync(DateTime? dataInicio, DateTime? dataFim)
+    public async Task<MovimentosViewModel> ObterPorPeriodoAsync(DateTime? dataInicio, DateTime? dataFim)
     {
         dataInicio ??= DateTime.Today;
         dataFim ??= DateTime.Now;
 
-        var movimentos = await _movimentoRepository
-            .ObterPorPeriodoAsync(dataInicio.GetValueOrDefault(), dataFim.GetValueOrDefault());
-
-        var movimentosViewModel = new List<MovimentoViewModel>();
-
-        foreach (var movimento in movimentos)
-            movimentosViewModel.Add(MovimentoViewModel.FromModel(movimento));
+        var movimentosViewModel = MovimentosViewModel.FromModel(await _movimentoRepository
+            .ObterPorPeriodoAsync(dataInicio.GetValueOrDefault(), dataFim.GetValueOrDefault()));
 
         return movimentosViewModel;
     }
 
-    public async Task<IEnumerable<MovimentoViewModel>> ObterTodosAsync()
+    public async Task<MovimentosViewModel> ObterTodosAsync()
     {
-        var movimentos = await _movimentoRepository.ObterTodosAsync();
-
-        var movimentosViewModel = new List<MovimentoViewModel>();
-
-        foreach (var movimento in movimentos)
-            movimentosViewModel.Add(MovimentoViewModel.FromModel(movimento));
+        var movimentosViewModel = MovimentosViewModel.FromModel(await _movimentoRepository.ObterTodosAsync());
 
         return movimentosViewModel;
     }
@@ -101,20 +91,5 @@ public class MovimentoService : IMovimentoService
         await _movimentoRepository.ExcluirAsync(movimento);
 
         return true;
-    }
-
-    private decimal Saldo(IEnumerable<Movimento> movimentos)
-    {
-        decimal saldo = 0M;
-
-        foreach (var movimento in movimentos)
-        {
-            if (movimento.Tipo == TipoMovimento.Receita)
-                saldo += movimento.Valor;
-            else
-                saldo -= movimento.Valor;
-        }
-
-        return saldo;
     }
 }

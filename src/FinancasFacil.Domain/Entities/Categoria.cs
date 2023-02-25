@@ -8,5 +8,5 @@ public class Categoria
     public DateTime DataModificacao { get; set; }
     public DateTime DataExclusao { get; set; }
 
-    public ICollection<Movimento> Movimentos { get; set; }
+    public List<Movimento>? Movimentos { get; set; }
 }

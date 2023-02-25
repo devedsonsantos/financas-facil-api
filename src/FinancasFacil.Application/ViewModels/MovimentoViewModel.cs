@@ -11,12 +11,13 @@ public class MovimentoViewModel
     public DateTime? DataVencimento { get; set; }
     public decimal? Valor { get; set; }
     public string? Observacao { get; set; }
-    public string? Categoria { get; set; }
     public bool? Quitado { get; set; }
-
     public DateTime? DataCadastro { get; set; }
     public DateTime? DataModificacao { get; set; }
     public DateTime? DataExclusao { get; set; }
+
+    public Guid? CategoriaId { get; set; }
+    public CategoriaViewModel? Categoria { get; set; }
 
     public Movimento ToModel()
     {
@@ -32,7 +33,8 @@ public class MovimentoViewModel
         model.DataVencimento = DataVencimento ?? model.DataVencimento;
         model.Valor = Valor ?? model.Valor;
         model.Observacao = Observacao ?? model.Observacao;
-        //model.Categoria = Categoria ?? model.Categoria;
+        model.CategoriaId = CategoriaId ?? model.CategoriaId;
+        model.Categoria = Categoria?.ToModel() ?? model.Categoria;
         model.Quitado = Quitado ?? model.Quitado;
         model.DataCadastro = DataCadastro ?? model.DataCadastro;
         model.DataModificacao = DataModificacao ?? model.DataModificacao;
@@ -50,12 +52,13 @@ public class MovimentoViewModel
         return new MovimentoViewModel
         {
             Id = model.Id,
-            Descricao = model.Descricao,
+            Descricao = model.Descricao,    
             Tipo = model.Tipo,
             DataVencimento = model.DataVencimento,
             Valor = model.Valor,
             Observacao = model.Observacao,
-            //Categoria = model.Categoria,
+            CategoriaId = model.CategoriaId,
+            Categoria = CategoriaViewModel.FromModel(model.Categoria),
             Quitado = model.Quitado,
             DataCadastro = model.DataCadastro,
             DataModificacao = model.DataModificacao
@@ -69,7 +72,8 @@ public class MovimentoViewModel
         model.DataVencimento = viewModel.DataVencimento ?? model.DataVencimento;
         model.Valor = viewModel.Valor ?? model.Valor;
         model.Observacao = viewModel.Observacao ?? model.Observacao;
-        //model.Categoria = viewModel.Categoria ?? model.Categoria;
+        model.CategoriaId = viewModel.CategoriaId ?? model.CategoriaId;
+        model.Categoria = viewModel.Categoria?.ToModel() ?? model.Categoria;
         model.Quitado = viewModel.Quitado ?? model.Quitado;
         model.DataModificacao = viewModel.DataModificacao ?? DateTime.UtcNow;
 

@@ -26,6 +26,9 @@ public class FinancasContext : DbContext
         {
             entity.HasKey(x => x.Id);
 
+            entity.Property(x => x.Id)
+                .HasColumnName("Id".ToLower());
+
             entity.Property(x => x.Descricao)
                 .HasColumnName("Descricao".ToLower())
                 .HasMaxLength(50);

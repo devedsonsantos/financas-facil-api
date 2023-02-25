@@ -3,6 +3,7 @@ using System;
 using FinancasFacil.Repository.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FinancasFacil.Repository.Migrations
 {
     [DbContext(typeof(FinancasContext))]
-    partial class FinancasContextModelSnapshot : ModelSnapshot
+    [Migration("20230225194547_AttCategoria")]
+    partial class AttCategoria
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,8 +29,7 @@ namespace FinancasFacil.Repository.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("DataCadastro")
                         .HasColumnType("timestamp without time zone")
@@ -59,7 +61,7 @@ namespace FinancasFacil.Repository.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
-                    b.Property<Guid?>("CategoriaId")
+                    b.Property<Guid>("CategoriaId")
                         .HasColumnType("uuid")
                         .HasColumnName("categoriaid");
 
@@ -116,7 +118,8 @@ namespace FinancasFacil.Repository.Migrations
                     b.HasOne("FinancasFacil.Domain.Entities.Categoria", "Categoria")
                         .WithMany("Movimentos")
                         .HasForeignKey("CategoriaId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.Navigation("Categoria");
                 });

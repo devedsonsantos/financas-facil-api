@@ -14,7 +14,10 @@ builder.Services.AddDbContext<FinancasContext>(options =>
 
 builder.Services.AddScoped<DbContext, FinancasContext>();
 builder.Services.AddScoped<IMovimentoRepository, MovimentoRepository>();
+builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
+
 builder.Services.AddScoped<IMovimentoService, MovimentoService>();
+builder.Services.AddScoped<ICategoriaService, CategoriaService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

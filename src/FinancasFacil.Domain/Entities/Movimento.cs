@@ -14,8 +14,8 @@ public class Movimento
     public DateTime? DataModificacao { get; set; }
     public DateTime? DataExclusao { get; set; }
 
-    public Guid CategoriaId { get; set; }
-    public Categoria Categoria { get; set; }
+    public Guid? CategoriaId { get; set; }
+    public Categoria? Categoria { get; set; }
 }
 
 public enum TipoMovimento

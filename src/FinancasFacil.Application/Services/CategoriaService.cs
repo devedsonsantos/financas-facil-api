@@ -12,6 +12,7 @@ public class CategoriaService : ICategoriaService
     {
         _categoriaRepository = categoriaRepository;
     }
+
     public async Task<CategoriaViewModel?> ObterPorIdAsync(Guid id)
     {
         var categoria = await _categoriaRepository.ObterPorIdAsync(id);

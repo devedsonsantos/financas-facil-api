@@ -4,7 +4,7 @@ namespace FinancasFacil.Application.ViewModels;
 
 public class MovimentosViewModel
 {
-    public List<MovimentoViewModel> Itens { get; set; } = new();
+    public List<MovimentoItemViewModel> Itens { get; set; } = new();
     public decimal Saldo
     {
         get
@@ -28,7 +28,7 @@ public class MovimentosViewModel
         var viewModel = new MovimentosViewModel();
 
         foreach (var model in models)
-            viewModel.Itens.Add(MovimentoViewModel.FromModel(model));
+            viewModel.Itens.Add(MovimentoItemViewModel.FromModel(model));
 
         return viewModel;
     }

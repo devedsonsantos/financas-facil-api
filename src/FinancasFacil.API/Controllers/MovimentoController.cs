@@ -60,7 +60,7 @@ public class MovimentoController : ControllerBase
 
     [HttpPost]
     [Route(nameof(Cadastrar))]
-    public async Task<IActionResult> Cadastrar(MovimentoViewModel viewModel)
+    public async Task<IActionResult> Cadastrar(MovimentoItemViewModel viewModel)
     {
         if (viewModel == null)
             return BadRequest();
@@ -75,7 +75,7 @@ public class MovimentoController : ControllerBase
 
     [HttpPut]
     [Route(nameof(Atualizar))]
-    public async Task<IActionResult> Atualizar(MovimentoViewModel viewModel)
+    public async Task<IActionResult> Atualizar(MovimentoItemViewModel viewModel)
     {
         if (viewModel == null)
             return BadRequest();

@@ -1,9 +1,8 @@
 ﻿using FinancasFacil.Domain.Entities;
-using System.Runtime.CompilerServices;
 
 namespace FinancasFacil.Application.ViewModels;
 
-public class MovimentoViewModel
+public class MovimentoItemViewModel
 {
     public Guid? Id { get; set; }
     public string? Descricao { get; set; }
@@ -47,9 +46,9 @@ public class MovimentoViewModel
         return model;
     }
 
-    public static MovimentoViewModel FromModel(Movimento model)
+    public static MovimentoItemViewModel FromModel(Movimento model)
     {
-        return new MovimentoViewModel
+        return new MovimentoItemViewModel
         {
             Id = model.Id,
             Descricao = model.Descricao,    
@@ -65,7 +64,7 @@ public class MovimentoViewModel
         };
     }
 
-    public static Movimento Merge(MovimentoViewModel viewModel, Movimento model)
+    public static Movimento Merge(MovimentoItemViewModel viewModel, Movimento model)
     {
         model.Descricao = viewModel.Descricao ?? model.Descricao;
         model.Tipo = viewModel.Tipo ?? model.Tipo;

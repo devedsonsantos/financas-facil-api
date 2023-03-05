@@ -5,20 +5,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FinancasFacil.Repository.Repositorys;
 
-public class MovimentoRepository : IMovimentoRepository
+public class MovimentoRepository : RepositoryGeneric<Movimento>, IMovimentoRepository
 {
     private readonly FinancasContext _context;
 
-    public MovimentoRepository(FinancasContext context)
+    public MovimentoRepository(FinancasContext context) : base(context)
     {
         _context = context;
-    }
-    public async Task<Movimento?> ObterPorIdAsync(Guid id)
-    {
-        return await _context.Movimentos
-            .AsNoTracking()
-            .Include(x => x.Categoria)
-            .FirstOrDefaultAsync(x => x.Id == id && x.DataExclusao == null);
     }
 
     public async Task<IEnumerable<Movimento>> ObterPorPeriodoAsync(DateTime dataInicio, DateTime dataFim)
@@ -26,13 +19,13 @@ public class MovimentoRepository : IMovimentoRepository
         return await _context.Movimentos
             .AsNoTracking()
             .Include(x => x.Categoria)
-            .Where(x => x.DataVencimento >= dataInicio && 
+            .Where(x => x.DataVencimento >= dataInicio &&
                         x.DataVencimento <= dataFim &&
                         x.DataExclusao == null)
             .ToListAsync();
     }
 
-    public async Task<IEnumerable<Movimento>> ObterTodosAsync()
+    public override async Task<IEnumerable<Movimento>> ObterTodosAsync()
     {
         return await _context.Movimentos
             .AsNoTracking()
@@ -41,38 +34,11 @@ public class MovimentoRepository : IMovimentoRepository
             .ToListAsync();
     }
 
-    public async Task<Movimento> AtualizarAsync(Movimento movimento)
+    public override async Task<Movimento?> ObterPorIdAsync(Guid id)
     {
-        var movimentoReturn = _context.Movimentos
-            .Update(movimento);
-
-        await SaveChangesAsync();
-
-        return movimentoReturn.Entity;
-    }
-
-    public async Task<Movimento> CadastrarAsync(Movimento movimento)
-    {
-        var movimentoReturn = await _context.Movimentos
-            .AddAsync(movimento);
-
-        await SaveChangesAsync();
-
-        return movimentoReturn.Entity;
-    }
-
-    public async Task ExcluirAsync(Movimento movimento)
-    {
-        _context.Movimentos.Remove(movimento);
-
-        await SaveChangesAsync();
-    }
-
-    private async Task<int> SaveChangesAsync()
-    {
-        var boolean = await _context.SaveChangesAsync();
-        await _context.DisposeAsync();
-
-        return boolean;
+        return await _context.Movimentos
+            .AsNoTracking()
+            .Include(x => x.Categoria)
+            .FirstOrDefaultAsync(x => x.Id == id && x.DataExclusao == null);
     }
 }

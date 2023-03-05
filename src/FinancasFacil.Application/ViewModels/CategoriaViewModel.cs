@@ -1,4 +1,5 @@
-﻿using FinancasFacil.Domain.Entities;
+﻿using FinancasFacil.Application.Extensions;
+using FinancasFacil.Domain.Entities;
 
 namespace FinancasFacil.Application.ViewModels;
 
@@ -16,10 +17,10 @@ public class CategoriaViewModel : ViewModelBase
     public Categoria ToModel(Categoria model)
     {
         model.Descricao = Descricao ?? model.Descricao;
-        model.DataCadastro = DataCadastro ?? DateTime.UtcNow; ;
+        model.DataCadastro = DataCadastro ?? DateTime.Now.ToBrazilDateTime();
         model.DataModificacao = DataModificacao ?? model.DataModificacao;
 
-        if (model.Id == Guid.Empty)
+        if (model.Id == Guid.Empty && Id.GetValueOrDefault() == Guid.Empty)
             model.Id = Guid.NewGuid();
         else
             model.Id = Id ?? Guid.NewGuid();
@@ -42,8 +43,7 @@ public class CategoriaViewModel : ViewModelBase
     public static Categoria Merge(CategoriaViewModel viewModel, Categoria model)
     {
         model.Descricao = viewModel.Descricao ?? model.Descricao;
-        model.DataCadastro = viewModel.DataCadastro ?? model.DataCadastro;
-        model.DataModificacao = viewModel.DataModificacao ?? DateTime.UtcNow;
+        model.DataModificacao = DateTime.Now.ToBrazilDateTime();
         model.DataExclusao = viewModel.DataExclusao ?? model.DataExclusao;
 
         return model;

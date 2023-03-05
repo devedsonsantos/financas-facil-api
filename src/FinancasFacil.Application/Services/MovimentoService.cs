@@ -1,4 +1,5 @@
-﻿using FinancasFacil.Application.Interfaces;
+﻿using FinancasFacil.Application.Extensions;
+using FinancasFacil.Application.Interfaces;
 using FinancasFacil.Application.ViewModels;
 using FinancasFacil.Repository.Interfaces;
 
@@ -7,10 +8,12 @@ namespace FinancasFacil.Application.Services;
 public class MovimentoService : IMovimentoService
 {
     private readonly IMovimentoRepository _movimentoRepository;
+    private readonly ICategoriaService _categoriaService;
 
-    public MovimentoService(IMovimentoRepository movimentoRepository)
+    public MovimentoService(IMovimentoRepository movimentoRepository, ICategoriaService categoriaService)
     {
         _movimentoRepository = movimentoRepository;
+        _categoriaService = categoriaService;
     }
 
     public async Task<MovimentoItemViewModel?> ObterPorIdAsync(Guid id)
@@ -30,8 +33,8 @@ public class MovimentoService : IMovimentoService
         }
         else
         {
-            dataInicio ??= DateTime.Today;
-            dataFim ??= DateTime.Now;
+            dataInicio ??= DateTime.Today.ToBrazilDateTime();
+            dataFim ??= DateTime.Now.ToBrazilDateTime();
 
             movimentos = MovimentosViewModel.FromModel(await _movimentoRepository
                 .ObterPorPeriodoAsync(dataInicio.GetValueOrDefault(), dataFim.GetValueOrDefault()));
@@ -42,8 +45,8 @@ public class MovimentoService : IMovimentoService
 
     public async Task<MovimentosViewModel> ObterPorPeriodoAsync(DateTime? dataInicio, DateTime? dataFim)
     {
-        dataInicio ??= DateTime.Today;
-        dataFim ??= DateTime.Now;
+        dataInicio ??= DateTime.Today.ToBrazilDateTime();
+        dataFim ??= DateTime.Now.ToBrazilDateTime();
 
         var movimentosViewModel = MovimentosViewModel.FromModel(await _movimentoRepository
             .ObterPorPeriodoAsync(dataInicio.GetValueOrDefault(), dataFim.GetValueOrDefault()));
@@ -64,6 +67,13 @@ public class MovimentoService : IMovimentoService
 
         if (movimento == null)
             return null;
+
+        var categoria = await _categoriaService.ObterPorIdAsync(viewModel.CategoriaId.GetValueOrDefault());
+
+        if (categoria == null)
+            return null;
+
+        movimento.Categoria = categoria.ToModel();
 
         movimento = MovimentoItemViewModel.Merge(viewModel, movimento);
 

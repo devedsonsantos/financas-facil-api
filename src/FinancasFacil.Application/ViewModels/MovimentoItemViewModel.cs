@@ -1,4 +1,5 @@
-﻿using FinancasFacil.Domain.Entities;
+﻿using FinancasFacil.Application.Extensions;
+using FinancasFacil.Domain.Entities;
 
 namespace FinancasFacil.Application.ViewModels;
 
@@ -31,10 +32,10 @@ public class MovimentoItemViewModel : ViewModelBase
         model.CategoriaId = CategoriaId ?? model.CategoriaId;
         model.Categoria = Categoria?.ToModel() ?? model.Categoria;
         model.Quitado = Quitado ?? model.Quitado;
-        model.DataCadastro = DataCadastro ?? DateTime.UtcNow;
+        model.DataCadastro = DataCadastro ?? DateTime.Now.ToBrazilDateTime();
         model.DataModificacao = DataModificacao ?? model.DataModificacao;
 
-        if (model.Id == Guid.Empty) 
+        if (model.Id == Guid.Empty && Id.GetValueOrDefault() == Guid.Empty) 
             model.Id = Guid.NewGuid();
         else
             model.Id = Id ?? Guid.NewGuid();
@@ -70,7 +71,7 @@ public class MovimentoItemViewModel : ViewModelBase
         model.CategoriaId = viewModel.CategoriaId ?? model.CategoriaId;
         model.Categoria = viewModel.Categoria?.ToModel() ?? model.Categoria;
         model.Quitado = viewModel.Quitado ?? model.Quitado;
-        model.DataModificacao = viewModel.DataModificacao ?? DateTime.UtcNow;
+        model.DataModificacao = DateTime.Now.ToBrazilDateTime();
 
         return model;
     }

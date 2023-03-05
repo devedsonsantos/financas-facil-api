@@ -2,18 +2,14 @@
 
 namespace FinancasFacil.Application.ViewModels;
 
-public class MovimentoItemViewModel
+public class MovimentoItemViewModel : ViewModelBase
 {
-    public Guid? Id { get; set; }
     public string? Descricao { get; set; }
     public TipoMovimento? Tipo { get; set; }
     public DateTime? DataVencimento { get; set; }
     public decimal? Valor { get; set; }
     public string? Observacao { get; set; }
     public bool? Quitado { get; set; }
-    public DateTime? DataCadastro { get; set; }
-    public DateTime? DataModificacao { get; set; }
-    public DateTime? DataExclusao { get; set; }
 
     public Guid? CategoriaId { get; set; }
     public CategoriaViewModel? Categoria { get; set; }
@@ -35,7 +31,7 @@ public class MovimentoItemViewModel
         model.CategoriaId = CategoriaId ?? model.CategoriaId;
         model.Categoria = Categoria?.ToModel() ?? model.Categoria;
         model.Quitado = Quitado ?? model.Quitado;
-        model.DataCadastro = DataCadastro ?? model.DataCadastro;
+        model.DataCadastro = DataCadastro ?? DateTime.UtcNow;
         model.DataModificacao = DataModificacao ?? model.DataModificacao;
 
         if (model.Id == Guid.Empty) 

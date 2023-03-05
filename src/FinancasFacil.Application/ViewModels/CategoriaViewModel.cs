@@ -2,13 +2,9 @@
 
 namespace FinancasFacil.Application.ViewModels;
 
-public class CategoriaViewModel
+public class CategoriaViewModel : ViewModelBase
 {
-    public Guid? Id { get; set; }
     public string? Descricao { get; set; }
-    public DateTime? DataCadastro { get; set; }
-    public DateTime? DataModificacao { get; set; }
-    public DateTime? DataExclusao { get; set; }
 
     public Categoria ToModel()
     {
@@ -17,12 +13,11 @@ public class CategoriaViewModel
         return ToModel(model);
     }
 
-    public Categoria ToModel (Categoria model)
+    public Categoria ToModel(Categoria model)
     {
         model.Descricao = Descricao ?? model.Descricao;
-        model.DataCadastro = DataCadastro ?? model.DataCadastro;
+        model.DataCadastro = DataCadastro ?? DateTime.UtcNow; ;
         model.DataModificacao = DataModificacao ?? model.DataModificacao;
-        model.DataExclusao = DataExclusao ?? model.DataExclusao;
 
         if (model.Id == Guid.Empty)
             model.Id = Guid.NewGuid();
@@ -48,7 +43,7 @@ public class CategoriaViewModel
     {
         model.Descricao = viewModel.Descricao ?? model.Descricao;
         model.DataCadastro = viewModel.DataCadastro ?? model.DataCadastro;
-        model.DataModificacao = viewModel.DataModificacao ?? model.DataModificacao;
+        model.DataModificacao = viewModel.DataModificacao ?? DateTime.UtcNow;
         model.DataExclusao = viewModel.DataExclusao ?? model.DataExclusao;
 
         return model;
